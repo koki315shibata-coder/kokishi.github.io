@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MMIW Awareness</title>
+  <style>
+    :root { --bg:#0f0f0f; --text:#f5f5f5; --muted:#cfcfcf; --accent:#b30000; --panel:#171717; --panel-alt:#131313; --border:#262626; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Inter,sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    header{position:sticky;top:0;background:rgba(15,15,15,.9);border-bottom:1px solid var(--border);backdrop-filter:blur(6px)}
+    .container{width:min(1100px,92%);margin:0 auto}
+    .head{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 0}
+    h1{font-size:1.15rem;margin:0}
+    .lang-switch button{background:#1b1b1b;border:1px solid var(--border);border-radius:10px;color:var(--text);padding:6px 10px;margin-left:6px;cursor:pointer}
+    .lang-switch button.active{background:var(--accent);border-color:transparent}
+    nav.primary{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0d0d0d}
+    nav.primary .links{display:flex;gap:14px;flex-wrap:wrap;padding:10px 0}
+    nav.primary a{padding:6px 10px;border:1px solid #222;border-radius:10px;background:#151515}
+    section{padding:52px 0;background:var(--panel)}
+    section.alt{background:var(--panel-alt)}
+    .hero{display:grid;place-items:center;min-height:46vh;text-align:center;background:linear-gradient(135deg,rgba(179,0,0,.28),rgba(0,0,0,.18)),url('https://images.unsplash.com/photo-1585007607899-6b48f9e86ac5?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;border-bottom:1px solid var(--border)}
+    .hero h2{font-size:2rem;margin:.2em 0}
+    .tag{color:var(--muted)}
+    h2{margin:0 0 10px;font-size:1.4rem;color:var(--accent)}
+    h3{margin:18px 0 6px;font-size:1.1rem}
+    ul{margin:8px 0 0 1.1rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .card{border:1px solid var(--border);border-radius:12px;background:#141414;padding:14px}
+    blockquote{border-left:4px solid var(--accent);padding:8px 14px;margin:14px 0;background:rgba(255,255,255,.03)}
+    .note{color:var(--muted);font-size:.95rem}
+    footer{border-top:1px solid var(--border);background:#0b0b0b}
+    footer .container{padding:18px 0}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container head">
+      <h1>MMIW Awareness</h1>
+      <div class="lang-switch">
+        <button onclick="setLang('en')" class="active">EN</button>
+        <button onclick="setLang('ja')">JA</button>
+        <button onclick="setLang('es')">ES</button>
+      </div>
+    </div>
+    <nav class="primary">
+      <div class="container links">
+        <a href="#home" data-nav="home">Home</a>
+        <a href="#importance" data-nav="importance">Why it matters</a>
+        <a href="#history" data-nav="history">History / Roots</a>
+        <a href="#data" data-nav="data">Data</a>
+        <a href="#barriers" data-nav="barriers">Barriers</a>
+        <a href="#action" data-nav="action">How to help</a>
+        <a href="#resources" data-nav="resources">Resources</a>
+        <a href="#glossary" data-nav="glossary">Glossary</a>
+        <a href="#faq" data-nav="faq">FAQ</a>
+        <a href="#credits" data-nav="credits">Credits</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="app"></main>
+
+  <footer>
+    <div class="container">
+      <p id="footNote">Created for educational purposes | Contact the site author</p>
+    </div>
+  </footer>
+
+  <script>
+    const T = {
+      en: {
+        nav:{home:'Home',importance:'Why it matters',history:'History / Roots',data:'Data',barriers:'Barriers',action:'How to help',resources:'Resources',glossary:'Glossary',faq:'FAQ',credits:'Credits'},
+        hero:{tag:'Student project on MMIW',title:'No more stolen sisters.',sub:'Raising awareness about Missing and Murdered Indigenous Women (MMIW).'},
+        importance:{h:'Why this matters',p:[
+          'Indigenous women experience violence and go missing or are murdered at disproportionately high rates.',
+          'Awareness saves lives: visibility drives better data, accountability, and resources.',
+          'Respectful storytelling centers Indigenous leadership and community needs.'
+        ]},
+        history:{h:'History & Root Causes',cards:[
+          {t:'Colonial violence',b:'Historical displacement, boarding schools, and policies disrupted families and safety nets.'},
+          {t:'Jurisdictional gaps',b:'Overlapping tribal, state, and federal authority can delay or prevent effective response.'},
+          {t:'Underreporting & data gaps',b:'Names and cases are too often misclassified or missing in official systems.'}
+        ]},
+        data:{h:'Data (high level)',note:'Numbers vary by region and source; use Indigenous-led sources where possible.',list:[
+          'Rates of homicide and disappearance exceed national averages in many regions.',
+          'Many cases remain unsolved or under-investigated.',
+          'Community-driven databases complement official statistics.'
+        ]},
+        barriers:{h:'Barriers to Justice',list:[
+          'Limited coordination across agencies',
+          'Bias and stereotyping in media and investigations',
+          'Resource constraints in rural and reservation areas'
+        ]},
+        action:{h:'How to Help',list:[
+          'Learn from Indigenous-led organizations',
+          'Support policy reforms and jurisdictional clarity',
+          'Share verified information; amplify community voices'
+        ],buttons:[{label:'NIWRC',href:'https://www.niwrc.org/'},{label:'MMIW USA',href:'https://www.mmiwusa.org/'}],small:'Prioritize Indigenous-led efforts and respect image credits and protocols.'},
+        resources:{h:'Resources (external)',items:[
+          {label:'NIWRC – National Indigenous Women’s Resource Center',href:'https://www.niwrc.org/'},
+          {label:'MMIW USA',href:'https://www.mmiwusa.org/'},
+          {label:'NWAC – Native Women’s Association of Canada',href:'https://nwac.ca/'}
+        ]},
+        glossary:{h:'Glossary (short)',items:[
+          {t:'MMIW',d:'Missing and Murdered Indigenous Women.'},
+          {t:'Jurisdiction',d:'Legal authority of tribal, state, or federal entities to act.'},
+          {t:'Indigenous-led',d:'Initiatives designed and governed by Indigenous communities.'}
+        ]},
+        faq:{h:'FAQ',qa:[
+          {q:'Why has this crisis been overlooked?',a:'Systemic racism, data gaps, and limited media coverage have obscured its scale.'},
+          {q:'What about men, girls, and Two-Spirit people?',a:'Related movements (e.g., MMIWG2S) include broader community members; many resources address this.'}
+        ]},
+        credits:{h:'Credits & Acknowledgment',p:[
+          'Created for an educational assignment.',
+          'We acknowledge Indigenous nations whose lands we live and study upon.'
+        ]},
+        footer:'Created for educational purposes | Contact the site author'
+      },
+      ja: {
+        nav:{home:'ホーム',importance:'なぜ重要か',history:'歴史／背景',data:'データ',barriers:'課題',action:'できること',resources:'参考資料',glossary:'用語集',faq:'よくある質問',credits:'謝辞'},
+        hero:{tag:'MMIWに関する学生プロジェクト',title:'これ以上「奪われる姉妹」を増やさない。',sub:'先住民族女性の失踪・殺害（MMIW）についての認知を高めます。'},
+        importance:{h:'なぜ重要か',p:[
+          '先住民族女性は不釣り合いに高い割合で暴力・失踪・殺害の被害に直面しています。',
+          '認知の拡大は、データ整備・説明責任・資源配分につながります。',
+          'ストーリーテリングは先住民族コミュニティの声を中心に据えることが重要です。'
+        ]},
+        history:{h:'歴史と背景要因',cards:[
+          {t:'植民地期の暴力',b:'移住の強制、寄宿学校政策などが家族と安全網を分断しました。'},
+          {t:'司法権の空白',b:'連邦・州・部族の権限が重なり、迅速な対応が遅れることがあります。'},
+          {t:'過少報告とデータ不足',b:'公式記録での誤分類・未記録により実態把握が困難です。'}
+        ]},
+        data:{h:'データ（概観）',note:'数値は地域と資料により異なります。可能な限り先住民族主導の情報を参照してください。',list:[
+          '多くの地域で全国平均を上回る失踪・殺害率が報告されています。',
+          '未解決・未十分調査の事例が多数存在します。',
+          'コミュニティ主導のデータベースが公式統計を補完します。'
+        ]},
+        barriers:{h:'正義への障壁',list:[
+          '機関間連携の不足',
+          '偏見やステレオタイプが報道・捜査に影響',
+          '農村・保留地での資源不足'
+        ]},
+        action:{h:'できること',list:[
+          '先住民族主導の団体から学び支援する',
+          '司法権限の明確化など政策改革を後押しする',
+          '正確な情報を共有し、コミュニティの声を増幅する'
+        ],buttons:[{label:'NIWRC',href:'https://www.niwrc.org/'},{label:'MMIW USA',href:'https://www.mmiwusa.org/'}],small:'先住民族主導の取り組みを優先し、クレジットとプロトコルを尊重してください。'},
+        resources:{h:'参考資料（外部）',items:[
+          {label:'NIWRC（全米先住民族女性資源センター）',href:'https://www.niwrc.org/'},
+          {label:'MMIW USA',href:'https://www.mmiwusa.org/'},
+          {label:'NWAC（カナダ先住民族女性協会）',href:'https://nwac.ca/'}
+        ]},
+        glossary:{h:'用語集（簡略）',items:[
+          {t:'MMIW',d:'Missing and Murdered Indigenous Women（失踪・殺害された先住民族女性）。'},
+          {t:'司法権（Jurisdiction）',d:'部族・州・連邦の法的権限。'},
+          {t:'先住民族主導（Indigenous-led）',d:'先住民族コミュニティが設計・運営する取り組み。'}
+        ]},
+        faq:{h:'よくある質問',qa:[
+          {q:'なぜ見過ごされてきたの？',a:'構造的差別、データ不足、限定的な報道が規模を見えにくくしてきました。'},
+          {q:'男性やTwo-Spiritも対象？',a:'関連する運動（MMIWG2Sなど）はより広い当事者を含み、多くの資料が扱っています。'}
+        ]},
+        credits:{h:'謝辞とクレジット',p:[
+          '本サイトは教育目的の課題として制作しました。',
+          '私たちが暮らし学ぶ土地の先住民族コミュニティに敬意を表します。'
+        ]},
+        footer:'教育目的で作成｜お問い合わせはサイト作者まで'
+      },
+      es: {
+        nav:{home:'Inicio',importance:'Por qué importa',history:'Historia / Raíces',data:'Datos',barriers:'Barreras',action:'Cómo ayudar',resources:'Recursos',glossary:'Glosario',faq:'Preguntas frecuentes',credits:'Créditos'},
+        hero:{tag:'Proyecto estudiantil sobre MMIW',title:'Ni una hermana menos.',sub:'Concienciación sobre Mujeres Indígenas Desaparecidas y Asesinadas (MMIW).'},
+        importance:{h:'Por qué importa',p:[
+          'Las mujeres indígenas enfrentan tasas desproporcionadas de violencia, desaparición y homicidio.',
+          'La visibilidad impulsa mejores datos, rendición de cuentas y recursos.',
+          'Los relatos respetuosos centran el liderazgo indígena.'
+        ]},
+        history:{h:'Historia y causas',cards:[
+          {t:'Violencia colonial',b:'Desplazamientos, internados y políticas que rompieron redes familiares.'},
+          {t:'Vacíos jurisdiccionales',b:'Superposición de autoridades tribal/estatal/federal puede frenar respuestas.'},
+          {t:'Subregistro y vacíos de datos',b:'Clasificaciones erróneas o ausentes en sistemas oficiales.'}
+        ]},
+        data:{h:'Datos (panorama)',note:'Las cifras varían por región y fuente; use recursos dirigidos por pueblos indígenas.',list:[
+          'Tasas superiores al promedio nacional en muchas regiones.',
+          'Numerosos casos sin resolver o con investigación insuficiente.',
+          'Bases de datos comunitarias complementan las estadísticas oficiales.'
+        ]},
+        barriers:{h:'Barreras para la justicia',list:[
+          'Coordinación limitada entre agencias',
+          'Sesgos y estereotipos en medios e investigaciones',
+          'Escasez de recursos en zonas rurales y reservas'
+        ]},
+        action:{h:'Cómo ayudar',list:[
+          'Aprenda y apoye a organizaciones dirigidas por pueblos indígenas',
+          'Apoye reformas de políticas y claridad jurisdiccional',
+          'Comparta información verificada; amplifique voces comunitarias'
+        ],buttons:[{label:'NIWRC',href:'https://www.niwrc.org/'},{label:'MMIW USA',href:'https://www.mmiwusa.org/'}],small:'Priorice esfuerzos indígenas y respete créditos y protocolos.'},
+        resources:{h:'Recursos (externos)',items:[
+          {label:'NIWRC – National Indigenous Women’s Resource Center',href:'https://www.niwrc.org/'},
+          {label:'MMIW USA',href:'https://www.mmiwusa.org/'},
+          {label:'NWAC – Native Women’s Association of Canada',href:'https://nwac.ca/'}
+        ]},
+        glossary:{h:'Glosario (breve)',items:[
+          {t:'MMIW',d:'Mujeres Indígenas Desaparecidas y Asesinadas.'},
+          {t:'Jurisdicción',d:'Autoridad legal tribal/estatal/federal.'},
+          {t:'Dirigido por pueblos indígenas',d:'Iniciativas diseñadas y gobernadas por comunidades indígenas.'}
+        ]},
+        faq:{h:'Preguntas frecuentes',qa:[
+          {q:'¿Por qué se ha pasado por alto?',a:'Racismo sistémico, brechas de datos y cobertura mediática limitada.'},
+          {q:'¿Incluye a hombres y Two-Spirit?',a:'Movimientos relacionados (MMIWG2S) abarcan a más miembros; muchos recursos lo tratan.'}
+        ]},
+        credits:{h:'Créditos y reconocimiento',p:[
+          'Creado para una tarea educativa.',
+          'Reconocemos a las naciones indígenas en cuyas tierras vivimos y estudiamos.'
+        ]},
+        footer:'Creado con fines educativos | Contacte al autor del sitio'
+      }
+    };
+
+    let LANG = 'en';
+
+    function setLang(code){
+      LANG = (T[code])? code : 'en';
+      document.querySelectorAll('.lang-switch button').forEach(b=>b.classList.remove('active'));
+      document.querySelector(`.lang-switch button[onclick="setLang('${LANG}')"]`).classList.add('active');
+      render();
+    }
+
+    function render(){
+      const t = T[LANG];
+      // update nav text
+      document.querySelectorAll('[data-nav]').forEach(a=>{
+        const k = a.getAttribute('data-nav');
+        a.textContent = t.nav[k];
+      });
+      document.getElementById('app').innerHTML = `
+        <section id="home" class="hero">
+          <div class="container">
+            <p class="tag">${t.hero.tag}</p>
+            <h2>${t.hero.title}</h2>
+            <p>${t.hero.sub}</p>
+          </div>
+        </section>
+
+        <section id="importance" class="alt">
+          <div class="container">
+            <h2>${t.importance.h}</h2>
+            ${t.importance.p.map(x=>`<p>${x}</p>`).join('')}
+          </div>
+        </section>
+
+        <section id="history">
+          <div class="container">
+            <h2>${t.history.h}</h2>
+            <div class="grid">
+              ${t.history.cards.map(c=>`<div class="card"><h3>${c.t}</h3><p>${c.b}</p></div>`).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section id="data" class="alt">
+          <div class="container">
+            <h2>${t.data.h}</h2>
+            <ul>${t.data.list.map(li=>`<li>${li}</li>`).join('')}</ul>
+            <p class="note">${t.data.note}</p>
+          </div>
+        </section>
+
+        <section id="barriers">
+          <div class="container">
+            <h2>${t.barriers.h}</h2>
+            <ul>${t.barriers.list.map(li=>`<li>${li}</li>`).join('')}</ul>
+          </div>
+        </section>
+
+        <section id="action" class="alt">
+          <div class="container">
+            <h2>${t.action.h}</h2>
+            <ul>${t.action.list.map(li=>`<li>${li}</li>`).join('')}</ul>
+            <div class="grid" style="margin-top:12px">
+              ${t.action.buttons.map(b=>`<div class="card"><a href="${b.href}" target="_blank" rel="noopener">${b.label}</a></div>`).join('')}
+            </div>
+            <p class="note">${t.action.small}</p>
+          </div>
+        </section>
+
+        <section id="resources">
+          <div class="container">
+            <h2>${t.resources.h}</h2>
+            <ul>
+              ${t.resources.items.map(it=>`<li><a href="${it.href}" target="_blank" rel="noopener">${it.label}</a></li>`).join('')}
+            </ul>
+          </div>
+        </section>
+
+        <section id="glossary" class="alt">
+          <div class="container">
+            <h2>${t.glossary.h}</h2>
+            <div class="grid">
+              ${t.glossary.items.map(g=>`<div class="card"><strong>${g.t}</strong><p>${g.d}</p></div>`).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section id="faq">
+          <div class="container">
+            <h2>${t.faq.h}</h2>
+            ${t.faq.qa.map(x=>`<div class="card"><h3>${x.q}</h3><p>${x.a}</p></div>`).join('')}
+          </div>
+        </section>
+
+        <section id="credits" class="alt">
+          <div class="container">
+            <h2>${t.credits.h}</h2>
+            ${t.credits.p.map(x=>`<p>${x}</p>`).join('')}
+          </div>
+        </section>
+      `;
+      document.getElementById('footNote').textContent = t.footer;
+    }
+
+    // initial render
+    render();
+  </script>
+</body>
+</html>
